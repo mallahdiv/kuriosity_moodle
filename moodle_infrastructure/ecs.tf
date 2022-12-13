@@ -36,8 +36,8 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   network_mode             = "awsvpc"
   memory                   = "1024"
   cpu                      = "512"
-  execution_role_arn       = var.ecs_role_arn
-  task_role_arn            = var.ecs_role_arn
+  execution_role_arn       = "arn:aws:iam::582540642094:role/ecsTask"
+  task_role_arn            = "arn:aws:iam::582540642094:role/ecsTask"
 }
 
 # ECS Service
