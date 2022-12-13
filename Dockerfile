@@ -22,7 +22,7 @@
 #EXPOSE 80
 #CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 # ENTRYPOINT [ "service apache2 restart" ]
---------
+
 
 FROM ubuntu/apache2:latest
 RUN apt update
@@ -31,7 +31,7 @@ RUN apt update
 RUN apt-get install dialog
 ARG DEBIAN_FRONTEND=noninteractive
 # RUN apt-get update
-RUN apt-get install apache2 mysql-client php libapache2-mod-php -y
+RUN apt-get install apache2 php libapache2-mod-php -y
 # RUN cd /etc/apache2 && echo "ServerName localhost" >> apache2.conf
 
 RUN apt install graphviz ghostscript clamav php-pspell php-curl php-gd php-intl php-mysql php-xml php-xmlrpc php-ldap php-zip php-soap php-mbstring -y
