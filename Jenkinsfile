@@ -27,9 +27,9 @@ pipeline {
       steps {
         sh '''#!/bin/bash
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-        cd kuriosity_moodle
         git pull origin main
-        cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/kuriosity_moodle/moodle_source_code/config.php
+        cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
+        cd kuriosity_moodle_main
         docker build -t kuriosity:1.${BUILD_NUMBER} .
         docker tag kuriosity:1.${BUILD_NUMBER} ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker logout
