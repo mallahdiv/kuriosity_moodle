@@ -56,3 +56,11 @@ moodle-plugin-ci.phar
 .hugo_build.lock
 .phpcs.xml
 jsconfig.json
+.DS_Store
+.terraform
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+old*.tf
