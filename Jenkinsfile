@@ -27,11 +27,12 @@ pipeline {
       steps {
         sh '''#!/bin/bash
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+        pwd
         git pull origin main
         cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
-        cd kuriosity_moodle_main
         docker build -t kuriosity:1.${BUILD_NUMBER} .
         docker tag kuriosity:1.${BUILD_NUMBER} ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+        docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker logout
         '''
       }
@@ -43,6 +44,7 @@ pipeline {
                         string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
                           dir('moodle_infrastructure') {
                             sh ''' #!/bin/bash
+                            pwd
                             terraform init
                             terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key"
                             terraform apply plan.tfplan
