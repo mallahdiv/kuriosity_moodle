@@ -12,5 +12,4 @@ RUN chown -R www-data /var/moodledata
 RUN chmod -R 777 /var/moodledata
 RUN chmod -R 0755 /var/www/html/moodle
 COPY moodle_source_code /var/www/html/moodle
-# RUN sed -i '1s/^/ServerName 100.25.200.123\n/' /etc/apache2/apache2.conf
 EXPOSE 80
