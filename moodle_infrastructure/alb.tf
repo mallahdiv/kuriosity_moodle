@@ -30,7 +30,7 @@ resource "aws_alb_listener" "moodle_alb_listener" {
 # ALB Target Group
 resource "aws_lb_target_group" "moodle_alb_target" {
   name        = "moodle-alb-target-group"
-  port        = 5000
+  port        = 80
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = module.vpc.vpc_id

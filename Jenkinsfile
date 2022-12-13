@@ -8,7 +8,7 @@ pipeline {
       steps {
         dir ('moodle_source_code') {
             sh '''#!/bin/bash
-
+            echo "build stage"
             '''
         }
       }
@@ -17,7 +17,7 @@ pipeline {
       steps {
         dir ('moodle_source_code') {
             sh '''#!/bin/bash
-            
+            echo "test stage"
             '''
         } 
       }
@@ -37,7 +37,7 @@ pipeline {
       }
     }
     stage ('Deploy to ECS') {
-      agent { label 'tfAgent' }
+      agent { label 'terraformAgent' }
       steps {
         withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
                         string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
@@ -52,7 +52,7 @@ pipeline {
       }
     }
     // stage ('Destroy ECS Infra') {
-    //   agent { label 'tfAgent' }
+    //   agent { label 'terraformAgent' }
     //   steps {
     //     withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
     //                     string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
@@ -65,7 +65,7 @@ pipeline {
   }
   post {
     always {
-      emailext to: "caden.p.hong@gmail.com",
+      emailext to: "kurafinalgroup4@gmail.com",
       subject: "Jenkins Alert for ${currentBuild.projectName} - Build ${currentBuild.number} Result",
       body: "Confirming that build ${currentBuild.number} has been completed for ${currentBuild.projectName} with a result of ${currentBuild.result}.\n\nFor more information, please visit ${env.BUILD_URL} for details on the build."
       }

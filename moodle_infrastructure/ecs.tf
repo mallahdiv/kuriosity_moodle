@@ -13,25 +13,8 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   container_definitions = <<EOF
   [
     {
-      "name": "nginx-container",
-      "image": "ch316/kura_deployment_5_main_nginx:latest",
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "/ecs/url-logs",
-          "awslogs-region": "us-east-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "portMappings": [
-        {
-          "containerPort": 5000
-        }
-      ]
-    },
-    {
-      "name": "flask-container",
-      "image": "ch316/kura_deployment_5_main_gunicorn-flask:latest",
+      "name": "moodle-container",
+      "image": "klgroup4/kuriosity",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -75,7 +58,7 @@ resource "aws_ecs_service" "aws-ecs-service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.moodle_alb_target.arn
-    container_name   = "nginx-container"
+    container_name   = "moodle-container"
     container_port   = 80
   }
 }

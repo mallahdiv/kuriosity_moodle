@@ -13,7 +13,6 @@ module "vpc" {
 
   tags = {
     Terraform   = "true"
-    Environment = "dev"
   }
 }
 
@@ -105,8 +104,8 @@ resource "aws_security_group" "ingress_app" {
   vpc_id      = module.vpc.vpc_id
 
   ingress {
-    from_port   = 5000
-    to_port     = 5000
+    from_port   = 80
+    to_port     = 80
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -138,15 +137,5 @@ resource "aws_security_group" "moodledb_security_group" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# VPC Subnet Group for RDS
-resource "aws_db_subnet_group" "moodle_vpc_subnet_group" {
-  name       = "moodle_vpc_subnet_group"
-  subnet_ids = module.vpc.private_subnets
-
-  tags = {
-    Name = "Subnet group to be used for moodle RDS"
   }
 }
