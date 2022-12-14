@@ -4,33 +4,28 @@ pipeline {
     DOCKERHUB_CREDENTIALS=credentials('dockerhub')
   }
    stages {
-    stage ('Build') {
+    stage ('Build Docker Image') {
+      agent { label 'dockerAgent' }
       steps {
-        dir ('moodle_source_code') {
-            sh '''#!/bin/bash
-            echo "build stage"
-            '''
-        }
+        sh '''#!/bin/bash
+        git pull origin main
+        cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
+        docker build -t kuriosity:1.${BUILD_NUMBER} .
+        '''
       }
     }
     stage ('Test') {
       steps {
-        dir ('moodle_source_code') {
-            sh '''#!/bin/bash
-            echo "test stage"
-            '''
-        } 
+        sh '''#!/bin/bash
+        echo "test stage"
+        '''
       }
     }
-    stage ('Push to DockerHub') {
+    stage ('Push Image to DockerHub') {
       agent { label 'dockerAgent' }
       steps {
         sh '''#!/bin/bash
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-        pwd
-        git pull origin main
-        cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
-        docker build -t kuriosity:1.${BUILD_NUMBER} .
         docker tag kuriosity:1.${BUILD_NUMBER} ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker logout
@@ -45,8 +40,9 @@ pipeline {
                           dir('moodle_infrastructure') {
                             sh ''' #!/bin/bash
                             terraform init
-                            terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key"
+                            terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="version_number=${BUILD_NUMBER}"
                             terraform apply plan.tfplan
+                            // sleep 600
                             '''
                           }
                         }
