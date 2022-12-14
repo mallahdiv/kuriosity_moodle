@@ -33,7 +33,7 @@ resource "aws_lb_target_group" "moodle_alb_target" {
 
   health_check {
     enabled = true
-    path    = "/health"
+    path    = "/moodle"
   }
 
   depends_on = [aws_alb.moodle_alb]
