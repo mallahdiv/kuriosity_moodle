@@ -6,19 +6,52 @@ resource "aws_ecs_cluster" "moodle_ecs_cluster" {
   }
 }
 
+# ECS Service
+resource "aws_ecs_service" "moodle_ecs_service" {
+  name                 = "lms-ecs-service"
+  cluster              = aws_ecs_cluster.moodle_ecs_cluster.id
+  task_definition      = aws_ecs_task_definition.moodle_ecs_task.arn
+  launch_type          = "FARGATE"
+  scheduling_strategy  = "REPLICA"
+  desired_count        = 1
+  force_new_deployment = true
+
+  network_configuration {
+    subnets = [
+      aws_subnet.moodle_prisub1.id,
+      aws_subnet.moodle_prisub2.id
+    ]
+    assign_public_ip = false
+    security_groups  = [aws_security_group.ingress_app.id, aws_security_group.moodle_efs_security_group.id]
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.moodle_alb_target.arn
+    container_name   = "moodle-container"
+    container_port   = 80
+  }
+}
+
 # ECS Task Definition
 resource "aws_ecs_task_definition" "moodle_ecs_task" {
-  family                = "moodle_ecs_task"
+  family                   = "moodle_ecs_task"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  memory                   = "8GB"
+  cpu                      = "2 vCPU"
+  execution_role_arn       = "arn:aws:iam::582540642094:role/ecsTask"
+  task_role_arn            = "arn:aws:iam::582540642094:role/ecsTask"
 
-  container_definitions = <<EOF
+#      "image": "klgroup4/kuriosity:1.${version_number}",
+  container_definitions = <<DEFINITION
   [
     {
       "name": "moodle-container",
-      "image": "klgroup4/kuriosity",
+      "image": "kuragroup4/kuriosity:1.5",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/url-logs",
+          "awslogs-group": "/ecs/moodle-logs",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -30,43 +63,24 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
       ]
     }
   ]
-  EOF
 
-  requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
-  memory                   = "1024"
-  cpu                      = "512"
-  execution_role_arn       = "arn:aws:iam::582540642094:role/ecsTask"
-  task_role_arn            = "arn:aws:iam::582540642094:role/ecsTask"
-}
+  DEFINITION
 
-# ECS Service
-resource "aws_ecs_service" "aws-ecs-service" {
-  name                 = "lms-ecs-service"
-  cluster              = aws_ecs_cluster.moodle_ecs_cluster.id
-  task_definition      = aws_ecs_task_definition.moodle_ecs_task.arn
-  launch_type          = "FARGATE"
-  scheduling_strategy  = "REPLICA"
-  desired_count        = 1
-  force_new_deployment = true
-
-  network_configuration {
-    subnets          = [for subnet in module.vpc.private_subnets : subnet]
-    assign_public_ip = false
-    security_groups  = [aws_security_group.ingress_app.id]
+  volume {
+    name = "efs-html"
+    efs_volume_configuration {
+      file_system_id = aws_efs_file_system.moodle_efs.id
+      root_directory = "/var/moodledata"
+    }
   }
-
-  load_balancer {
-    target_group_arn = aws_lb_target_group.moodle_alb_target.arn
-    container_name   = "moodle-container"
-    container_port   = 80
-  }
+  
+  depends_on         = [aws_efs_mount_target.moodle_efs_mount]
 }
 
 # CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "moodle_cw_log_group" {
-  name = "/ecs/moodle_logs"
+  name = "/ecs/moodle-logs"
   tags = {
-    Application = "moodle_app"
+    Application = "moodle-app"
   }
 }

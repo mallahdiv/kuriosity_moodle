@@ -1,49 +1,80 @@
 # Moodle VPC
-module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+resource "aws_vpc" "moodle_vpc" {
+  cidr_block = "172.28.0.0/16"
+}
 
-  name = "moodle_vpc"
-  cidr = "172.28.0.0/16"
-
-  azs             = ["us-east-1a", "us-east-1b"]
-  public_subnets  = ["172.28.0.0/18", "172.28.128.0/18"]
-  private_subnets = ["172.28.64.0/18", "172.28.192.0/18"]
-
-  enable_nat_gateway = true
+# Public Subnet 1
+resource "aws_subnet" "moodle_pubsub1" {
+  vpc_id            = aws_vpc.moodle_vpc.id
+  cidr_block        = "172.28.0.0/18"
+  availability_zone = "us-east-1a"
 
   tags = {
-    Terraform   = "true"
+    "Name" = "moodle_pubsub1"
+  }
+}
+
+# Public Subnet 2
+resource "aws_subnet" "moodle_pubsub2" {
+  vpc_id            = aws_vpc.moodle_vpc.id
+  cidr_block        = "172.28.64.0/18"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    "Name" = "moodle_pubsub2"
+  }
+}
+
+# Private Subnet 1
+resource "aws_subnet" "moodle_prisub1" {
+  vpc_id            = aws_vpc.moodle_vpc.id
+  cidr_block        = "172.28.128.0/18"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    "Name" = "moodle_prisub1"
+  }
+}
+
+# Private Subnet 2
+resource "aws_subnet" "moodle_prisub2" {
+  vpc_id            = aws_vpc.moodle_vpc.id
+  cidr_block        = "172.28.192.0/18"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    "Name" = "moodle_prisub2"
   }
 }
 
 # Public Route Table
 resource "aws_route_table" "public_route_table" {
-  vpc_id = module.vpc.vpc_id
+  vpc_id = aws_vpc.moodle_vpc.id
 }
 
 # Private Route Table
 resource "aws_route_table" "private_route_table" {
-  vpc_id = module.vpc.vpc_id
+  vpc_id = aws_vpc.moodle_vpc.id
 }
 
 # Route Table Associations
-resource "aws_route_table_association" "public_a_subnet" {
-  subnet_id      = module.vpc.public_subnets[0]
+resource "aws_route_table_association" "public_subnet1" {
+  subnet_id      = aws_subnet.moodle_pubsub1.id
   route_table_id = aws_route_table.public_route_table.id
 }
 
-resource "aws_route_table_association" "public_b_subnet" {
-  subnet_id      = module.vpc.public_subnets[1]
+resource "aws_route_table_association" "public_subnet2" {
+  subnet_id      = aws_subnet.moodle_pubsub2.id
   route_table_id = aws_route_table.public_route_table.id
 }
 
-resource "aws_route_table_association" "private_a_subnet" {
-  subnet_id      = module.vpc.private_subnets[0]
+resource "aws_route_table_association" "private_subnet1" {
+  subnet_id      = aws_subnet.moodle_prisub1.id
   route_table_id = aws_route_table.private_route_table.id
 }
 
-resource "aws_route_table_association" "private_b_subnet" {
-  subnet_id      = module.vpc.private_subnets[1]
+resource "aws_route_table_association" "private_subnet2" {
+  subnet_id      = aws_subnet.moodle_prisub2.id
   route_table_id = aws_route_table.private_route_table.id
 }
 
@@ -54,88 +85,25 @@ resource "aws_eip" "elastic_ip" {
 
 # Interget Gateway
 resource "aws_internet_gateway" "igw" {
-  vpc_id = module.vpc.vpc_id
+  vpc_id = aws_vpc.moodle_vpc.id
 }
 
 # NAT Gateway
 resource "aws_nat_gateway" "ngw" {
-  subnet_id     = module.vpc.public_subnets[0]
+  subnet_id     = aws_subnet.moodle_pubsub1.id
   allocation_id = aws_eip.elastic_ip.id
 }
 
-# Internet and NAT Gateway Routes
-resource "aws_route" "public_igw" {
+# Internet Gateway Route
+resource "aws_route" "igw_route" {
   route_table_id         = aws_route_table.public_route_table.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
 
-resource "aws_route" "private_ngw" {
+# NAT Gateway Route
+resource "aws_route" "ngw_route" {
   route_table_id         = aws_route_table.private_route_table.id
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.ngw.id
-}
-
-# Security Group: ALB HTTP
-resource "aws_security_group" "http" {
-  name        = "http_traffic"
-  description = "HTTP traffic"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Security Group: ECS Service Ingress
-resource "aws_security_group" "ingress_app" {
-  name        = "ingress-api"
-  description = "Allow ingress to API"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Security Group: moodledb (MySQL)
-resource "aws_security_group" "moodledb_security_group" {
-  name        = "moodledb_security_group"
-  description = "ingress and egress for MySQL"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    description = "MySQL"
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }

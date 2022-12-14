@@ -3,16 +3,12 @@ resource "aws_alb" "moodle_alb" {
   name               = "moodle-alb"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [for subnet in module.vpc.public_subnets : subnet]
+  subnets            = [
+    aws_subnet.moodle_pubsub1.id,
+    aws_subnet.moodle_pubsub2.id
+  ]
   security_groups    = [aws_security_group.http.id]
-
-  # access_logs {
-  #   bucket = aws_s3_bucket.lb_logs.bucket
-  #   prefix = ""
-  #   enabled = true
-  # }
-
-  depends_on = [aws_internet_gateway.igw]
+  depends_on         = [aws_internet_gateway.igw]
 }
 
 # ALB Listener Group
@@ -33,7 +29,7 @@ resource "aws_lb_target_group" "moodle_alb_target" {
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = aws_vpc.moodle_vpc.id
 
   health_check {
     enabled = true
