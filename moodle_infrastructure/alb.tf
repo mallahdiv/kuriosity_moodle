@@ -31,10 +31,10 @@ resource "aws_lb_target_group" "moodle_alb_target" {
   target_type = "ip"
   vpc_id      = aws_vpc.moodle_vpc.id
 
-  # health_check {
-  #   enabled = true
-  #   path    = "/health"
-  # }
+  health_check {
+    enabled = false
+    path    = "/health"
+  }
 
   depends_on = [aws_alb.moodle_alb]
 }
