@@ -18,10 +18,10 @@ resource "aws_ecs_service" "moodle_ecs_service" {
 
   network_configuration {
     subnets = [
-      aws_subnet.moodle_prisub1.id,
-      aws_subnet.moodle_prisub2.id
+      aws_subnet.moodle_pubsub1.id,#
+      aws_subnet.moodle_pubsub2.id#
     ]
-    assign_public_ip = false
+    assign_public_ip = true#
     security_groups  = [aws_security_group.ingress_app.id]
   }
 
