@@ -7,7 +7,7 @@ RUN apt install graphviz ghostscript clamav php-pspell php-curl php-gd php-intl 
 RUN service apache2 restart
 RUN mkdir /var/moodledata
 RUN mkdir /var/www/html/moodle
-RUN echo "php_value max_input_vars 5000" > /var/www/html/moodle/.htaccess
+# RUN echo "php_value max_input_vars 5000" > /var/www/html/moodle/.htaccess
 RUN chown -R www-data /var/moodledata
 RUN chmod -R 777 /var/moodledata
 RUN chmod -R 0755 /var/www/html/moodle
