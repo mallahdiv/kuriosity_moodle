@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "moodle_alb_target" {
   vpc_id      = aws_vpc.moodle_vpc.id
 
   health_check {
-    enabled = false
+    enabled = true
     path    = "/health"
   }
 
