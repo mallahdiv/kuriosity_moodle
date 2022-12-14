@@ -47,7 +47,7 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   [
     {
       "name": "moodle-container",
-      "image": "kuragroup4/kuriosity:1.5",
+      "image": "kuragroup4/kuriosity:1.7",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
