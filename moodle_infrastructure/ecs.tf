@@ -22,7 +22,7 @@ resource "aws_ecs_service" "moodle_ecs_service" {
       aws_subnet.moodle_prisub2.id
     ]
     assign_public_ip = false
-    security_groups  = [aws_security_group.ingress_app.id, aws_security_group.moodle_efs_security_group.id]
+    security_groups  = [aws_security_group.ingress_app.id]
   }
 
   load_balancer {
@@ -66,15 +66,15 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
 
   DEFINITION
 
-  volume {
-    name = "efs-html"
-    efs_volume_configuration {
-      file_system_id = aws_efs_file_system.moodle_efs.id
-      root_directory = "/var/moodledata"
-    }
-  }
+  # volume {
+  #   name = "efs-html"
+  #   efs_volume_configuration {
+  #     file_system_id = aws_efs_file_system.moodle_efs.id
+  #     root_directory = "/var/moodledata"
+  #   }
+  # }
   
-  depends_on         = [aws_efs_mount_target.moodle_efs_mount]
+  # depends_on         = [aws_efs_mount_target.moodle_efs_mount]
 }
 
 # CloudWatch Log Group

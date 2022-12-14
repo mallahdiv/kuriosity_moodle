@@ -63,15 +63,15 @@ resource "aws_security_group" "moodledb_security_group" {
 }
 
 # Security Group for EFS Mount Target to Allow Access from ECS Service Security Group
-resource "aws_security_group" "moodle_efs_security_group" {
-  name        = "moodle_efs_security_group"
-  description = "allow access from ecs security group"
-  vpc_id      = aws_vpc.moodle_vpc.id
+# resource "aws_security_group" "moodle_efs_security_group" {
+#   name        = "moodle_efs_security_group"
+#   description = "allow access from ecs security group"
+#   vpc_id      = aws_vpc.moodle_vpc.id
 
-  ingress {
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "TCP"
-    cidr_blocks = [aws_vpc.moodle_vpc.cidr_block]
-  }
-}
+#   ingress {
+#     from_port   = 2049
+#     to_port     = 2049
+#     protocol    = "TCP"
+#     cidr_blocks = [aws_vpc.moodle_vpc.cidr_block]
+#   }
+# }
