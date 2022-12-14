@@ -18,8 +18,8 @@ resource "aws_ecs_service" "moodle_ecs_service" {
 
   network_configuration {
     subnets = [
-      aws_subnet.moodle_pubsub1.id,
-      aws_subnet.moodle_pubsub2.id
+      aws_subnet.moodle_prisub1.id,
+      aws_subnet.moodle_prisub2.id
     ]
     assign_public_ip = false
     security_groups  = [aws_security_group.ingress_app.id]
@@ -47,7 +47,7 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   [
     {
       "name": "moodle-container",
-      "image": "kuragroup4/kuriosity:1.33",
+      "image": "kuragroup4/kuriosity:1.35",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
