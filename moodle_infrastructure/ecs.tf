@@ -13,7 +13,7 @@ resource "aws_ecs_service" "moodle_ecs_service" {
   task_definition      = aws_ecs_task_definition.moodle_ecs_task.arn
   launch_type          = "FARGATE"
   scheduling_strategy  = "REPLICA"
-  desired_count        = 2
+  desired_count        = 3
   force_new_deployment = true
 
   network_configuration {
@@ -37,8 +37,8 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   family                   = "moodle_ecs_task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  memory                   = "8GB"
-  cpu                      = "2 vCPU"
+  memory                   = "1024"
+  cpu                      = "512"
   execution_role_arn       = "arn:aws:iam::582540642094:role/ecsTask"
   task_role_arn            = "arn:aws:iam::582540642094:role/ecsTask"
 
@@ -47,7 +47,7 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   [
     {
       "name": "moodle-container",
-      "image": "kuragroup4/kuriosity:1.22",
+      "image": "kuragroup4/kuriosity:1.23",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
