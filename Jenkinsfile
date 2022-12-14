@@ -28,6 +28,7 @@ pipeline {
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
         docker tag kuriosity:1.${BUILD_NUMBER} ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+        docker rmi kuriosity:1.${BUILD_NUMBER}
         docker logout
         '''
       }
