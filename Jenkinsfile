@@ -10,7 +10,7 @@ pipeline {
         sh '''#!/bin/bash
         git pull origin main
         cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
-        docker build -t kuriosity:1.${BUILD_NUMBER} .
+        docker build -t ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} .
         '''
       }
     }
@@ -26,9 +26,7 @@ pipeline {
       steps {
         sh '''#!/bin/bash
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-        docker tag kuriosity:1.${BUILD_NUMBER} ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
-        docker rmi kuriosity:1.${BUILD_NUMBER}
         docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker logout
         '''
