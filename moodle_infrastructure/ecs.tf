@@ -13,7 +13,7 @@ resource "aws_ecs_service" "moodle_ecs_service" {
   task_definition      = aws_ecs_task_definition.moodle_ecs_task.arn
   launch_type          = "FARGATE"
   scheduling_strategy  = "REPLICA"
-  desired_count        = 1
+  desired_count        = 2
   force_new_deployment = true
 
   network_configuration {
@@ -47,7 +47,7 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   [
     {
       "name": "moodle-container",
-      "image": "kuragroup4/kuriosity:1.10",
+      "image": "kuragroup4/kuriosity:1.11",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
