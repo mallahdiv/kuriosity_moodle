@@ -130,8 +130,9 @@ resource "aws_instance" "kl_bs_moodle" {
     sudo service docker start
     sudo gpasswd -a ubuntu docker
     sudo setfacl -m "user:ubuntu:rw" /var/run/docker.sock
-    docker pull kuragroup4/kuriosity:1.38
-    docker run -d -p 80:80 kuragroup4/kuriosity:1.37
+    sleep 60
+    docker pull kuragroup4/${var.image-id}
+    docker run -d -p 80:80 kuragroup4/${var.image-id}
   EOF
 
   tags = {
