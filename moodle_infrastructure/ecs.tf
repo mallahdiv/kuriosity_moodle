@@ -42,12 +42,12 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   execution_role_arn       = "arn:aws:iam::582540642094:role/ecsTask"
   task_role_arn            = "arn:aws:iam::582540642094:role/ecsTask"
 
-#      "image": "klgroup4/kuriosity:1.${version_number}",
+  #      "image": "klgroup4/kuriosity:1.${version_number}",
   container_definitions = <<DEFINITION
   [
     {
       "name": "moodle-container",
-      "image": "kuragroup4/kuriosity:1.36",
+      "image": "kuragroup4/kuriosity:1.37",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -73,7 +73,7 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   #     root_directory = "/var/moodledata"
   #   }
   # }
-  
+
   # depends_on         = [aws_efs_mount_target.moodle_efs_mount]
 }
 

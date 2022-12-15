@@ -3,12 +3,12 @@ resource "aws_alb" "moodle_alb" {
   name               = "moodle-alb"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [
+  subnets = [
     aws_subnet.moodle_pubsub1.id,
     aws_subnet.moodle_pubsub2.id
   ]
-  security_groups    = [aws_security_group.http.id]
-  depends_on         = [aws_internet_gateway.igw]
+  security_groups = [aws_security_group.http.id]
+  depends_on      = [aws_internet_gateway.igw]
 }
 
 # ALB Listener Group
