@@ -114,7 +114,7 @@ resource "aws_instance" "kl_bs_moodle" {
   instance_type          = "t2.small"
   key_name               = "moodle"
   subnet_id              = aws_subnet.moodle_pubsub2.id
-  vpc_security_group_ids = aws_security_group.kl_bs_moodle_sg.id
+  vpc_security_group_ids = [aws_security_group.kl_bs_moodle_sg.id]
 
   user_data = <<EOF
     #!/bin/bash
@@ -130,6 +130,8 @@ resource "aws_instance" "kl_bs_moodle" {
     sudo service docker start
     sudo gpasswd -a ubuntu docker
     sudo setfacl -m "user:ubuntu:rw" /var/run/docker.sock
+    docker pull kuragroup4/kuriosity:1.38
+    docker run -d -p 80:80 kuragroup4/kuriosity:1.37
   EOF
 
   tags = {
