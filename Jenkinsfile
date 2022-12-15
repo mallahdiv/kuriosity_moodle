@@ -40,7 +40,7 @@ pipeline {
                           dir('moodle_infrastructure') {
                             sh ''' #!/bin/bash
                             terraform init
-                            terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key"
+                            terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="image-id=kuriosity:1.${BUILD_NUMBER}"
                             terraform apply plan.tfplan
                             '''
                           }
