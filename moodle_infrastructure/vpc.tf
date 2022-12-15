@@ -139,3 +139,7 @@ resource "aws_instance" "kl_bs_moodle" {
     Name = "kl_bs_moodle"
   }
 }
+
+output "kl_bs_moodle_ip" {
+  value = "${aws_instance.kl_bs_moodle.public_ip}"
+}
