@@ -11,22 +11,36 @@ resource "aws_kms_alias" "moodle_tf_bucket_key_alias" {
   target_key_id = aws_kms_key.moodle_tf_bucket_key.id
 }
 
-# AWS S3 Bucket - bucket used to store tfstate file with essential security features (versioning and server-side encryption with KMS key)
+# AWS S3 Bucket - bucket used to store terraform.tfstate file
 resource "aws_s3_bucket" "moodle_tf_bucket" {
   bucket = "moodle-tfstate-bucket"
-  acl = "private"
-  
-  versioning = {
-    enabled = true
+  tags = {
+    Name = "Moodle S3 Bucket"
   }
+}
 
-  server_side_encryption_configuration {
+# AWS S3 Bucket Server Side Encryption with KMS key
+resource "aws_s3_bucket_server_side_encryption_configuration" "moodle_tf_sse" {
+  bucket = aws_s3_bucket.moodle_tf_bucket.bucket
     rule {
       apply_server_side_encryption_by_default {
         kms_master_key_id = aws_kms_key.moodle_tf_bucket_key.id
         sse_algorithm = "aws:kms"
       }
     }
+  }
+
+# AWS S3 Bucket ACL Resource to set Access Control List
+resource "aws_s3_bucket_acl" "moodle_tf_bucket_acl" {
+  bucket = aws_s3_bucket.moodle_tf_bucket.id
+  acl    = "private"
+}
+
+# AWS S3 Bucket Versioning Resource to enable versioning
+resource "aws_s3_bucket_versioning" "moodle_tf_bucket_versioning" {
+  bucket = aws_s3_bucket.moodle_tf_bucket.id
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
