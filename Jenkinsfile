@@ -4,6 +4,13 @@ pipeline {
     DOCKERHUB_CREDENTIALS=credentials('dockerhub')
   }
    stages {
+    stage ('for email') {
+      steps {
+        sh '''#!/bin/bash
+        echo "Hi"
+        '''
+      }
+    }
     // stage ('Build Docker Image') {
     //   agent { label 'dockerAgent' }
     //   steps {
