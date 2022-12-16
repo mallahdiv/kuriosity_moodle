@@ -14,13 +14,6 @@ pipeline {
         '''
       }
     }
-    stage ('Test') {
-      steps {
-        sh '''#!/bin/bash
-        echo "test stage"
-        '''
-      }
-    }
     stage ('Push Image to DockerHub') {
       agent { label 'dockerAgent' }
       steps {
@@ -29,6 +22,14 @@ pipeline {
         docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker logout
+        '''
+      }
+    }
+    stage ('Test') {
+      agent { label 'altAgent' }
+      steps {
+        sh '''#!/bin/bash
+        echo "test stage"
         '''
       }
     }
