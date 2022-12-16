@@ -4,7 +4,7 @@ global $CFG;
 $CFG = new stdClass();
 $CFG->dbtype    = 'auroramysql';
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = 'moodleprod2.cx3dgiqjjk1n.us-east-1.rds.amazonaws.com';
+$CFG->dbhost    = '';
 $CFG->dbname    = 'moodleprod2';
 $CFG->dbuser    = 'klgroup4';
 $CFG->dbpass    = 'KLgroup4*';
