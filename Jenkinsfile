@@ -4,27 +4,27 @@ pipeline {
     DOCKERHUB_CREDENTIALS=credentials('dockerhub')
   }
    stages {
-    stage ('Build Docker Image') {
-      agent { label 'dockerAgent' }
-      steps {
-        sh '''#!/bin/bash
-        git pull origin main
-        cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
-        docker build -t ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} .
-        '''
-      }
-    }
-    stage ('Push Image to DockerHub') {
-      agent { label 'dockerAgent' }
-      steps {
-        sh '''#!/bin/bash
-        echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-        docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
-        docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
-        docker logout
-        '''
-      }
-    }
+    // stage ('Build Docker Image') {
+    //   agent { label 'dockerAgent' }
+    //   steps {
+    //     sh '''#!/bin/bash
+    //     git pull origin main
+    //     cp /home/ubuntu/agent/secret-config.php /home/ubuntu/agent/workspace/kuriosity_moodle_main/moodle_source_code/config.php
+    //     docker build -t ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} .
+    //     '''
+    //   }
+    // }
+    // stage ('Push Image to DockerHub') {
+    //   agent { label 'dockerAgent' }
+    //   steps {
+    //     sh '''#!/bin/bash
+    //     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+    //     docker push ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+    //     docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+    //     docker logout
+    //     '''
+    //   }
+    // }
     // stage ('Test') {
     //   agent { label 'altAgent' }
     //   steps {
@@ -71,7 +71,7 @@ pipeline {
   post {
     always {
       emailext to: "kurafinalgroup4@gmail.com",
-      subject: "Jenkins Pipeline Alert for ${currentBuild.projectName} - Build ${currentBuild.number} Result",
+      subject: "Jenkins Pipeline Alert for ${JOB_NAME} - Build ${currentBuild.number} Result",
       body: "Confirming that build ${currentBuild.number} has been completed for ${currentBuild.projectName} with a result of ${currentBuild.result}.\n\nFor more information, please visit ${env.BUILD_URL} for details on the build."
       }
   }
