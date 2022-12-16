@@ -48,7 +48,7 @@ pipeline {
                         string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
                           dir('moodle_infrastructure') {
                             sh ''' #!/bin/bash
-                            terraform init \
+                            echo "yes" | terraform init \
                             -backend-config="bucket=moodle-tfstate-bucket" \
                             -backend-config="key=moodle/infra.tfstate" \
                             -backend-config="region=us-east-1" \
