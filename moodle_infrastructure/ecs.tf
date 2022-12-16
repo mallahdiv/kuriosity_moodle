@@ -65,16 +65,6 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   ]
 
   DEFINITION
-
-  # volume {
-  #   name = "efs-html"
-  #   efs_volume_configuration {
-  #     file_system_id = aws_efs_file_system.moodle_efs.id
-  #     root_directory = "/var/moodledata"
-  #   }
-  # }
-
-  # depends_on         = [aws_efs_mount_target.moodle_efs_mount]
 }
 
 # CloudWatch Log Group

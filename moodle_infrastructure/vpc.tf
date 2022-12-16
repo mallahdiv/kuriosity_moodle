@@ -107,39 +107,3 @@ resource "aws_route" "ngw_route" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.ngw.id
 }
-
-# # Redirected EC2
-# resource "aws_instance" "kl_bs_moodle" {
-#   ami                    = "ami-08c40ec9ead489470"
-#   instance_type          = "t2.small"
-#   key_name               = "moodle"
-#   subnet_id              = aws_subnet.moodle_pubsub2.id
-#   vpc_security_group_ids = [aws_security_group.kl_bs_moodle_sg.id]
-
-#   user_data = <<EOF
-#     #!/bin/bash
-#     sudo apt-get update
-#     sudo apt-get install ca-certificates curl gnupg lsb-release -y
-#     sudo mkdir -p /etc/apt/keyrings
-#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-#     echo \
-#       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-#       $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-#     sudo apt-get update
-#     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose acl default-jre -y
-#     sudo service docker start
-#     sudo gpasswd -a ubuntu docker
-#     sudo setfacl -m "user:ubuntu:rw" /var/run/docker.sock
-#     sleep 60
-#     docker pull kuragroup4/${var.image-id}
-#     docker run -d -p 80:80 kuragroup4/${var.image-id}
-#   EOF
-
-#   tags = {
-#     Name = "kl_bs_moodle"
-#   }
-# }
-
-# output "kl_bs_moodle_ip" {
-#   value = "${aws_instance.kl_bs_moodle.public_ip}"
-# }
