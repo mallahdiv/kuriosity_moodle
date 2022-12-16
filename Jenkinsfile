@@ -36,6 +36,10 @@ pipeline {
         docker pull ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
         docker-compose up
+
+        
+
+        
         '''
       }
     }
