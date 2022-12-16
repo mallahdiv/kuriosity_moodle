@@ -47,6 +47,9 @@ pipeline {
                         }
       }
     }
+    stage () {
+
+    }
     // stage ('Destroy ECS Infra') {
     //   agent { label 'terraformAgent' }
     //   steps {
