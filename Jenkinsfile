@@ -29,8 +29,7 @@ pipeline {
       agent { label 'altAgent' }
       steps {
         sh '''#!/bin/bash
-        pwd
-        
+        cd /home/ubuntu/agent
         docker-compose down
         docker stop $(docker ps -a -q)
         docker rm $(docker ps -a -q)
@@ -38,10 +37,6 @@ pipeline {
         docker pull ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
         docker-compose up
-
-        
-
-
         '''
       }
     }
