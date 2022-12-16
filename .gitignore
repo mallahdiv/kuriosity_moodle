@@ -64,4 +64,4 @@ terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
 old*.tf
-secret-config.php
+./setup_scripts/secret-config.php
