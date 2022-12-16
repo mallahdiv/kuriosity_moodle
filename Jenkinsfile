@@ -25,37 +25,37 @@ pipeline {
         '''
       }
     }
-    stage ('Test') {
-      agent { label 'altAgent' }
-      steps {
-        sh '''#!/bin/bash
-        cp /home/ubuntu/docker-compose.yaml ./
-        docker-compose down
-        docker stop $(docker ps -a -q)
-        docker rm $(docker ps -a -q)
-        docker rmi moodle:alt
-        docker pull ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
-        docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
-        docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
-        docker-compose up
-        '''
-      }
-    }
-    stage ('Deploy to ECS') {
-      agent { label 'terraformAgent' }
-      steps {
-        withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
-                        string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
-                          dir('moodle_infrastructure') {
-                            sh ''' #!/bin/bash
-                            terraform init
-                            terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="image-id=kuriosity:1.${BUILD_NUMBER}"
-                            terraform apply plan.tfplan
-                            '''
-                          }
-                        }
-      }
-    }
+    // stage ('Test') {
+    //   agent { label 'altAgent' }
+    //   steps {
+    //     sh '''#!/bin/bash
+    //     cp /home/ubuntu/docker-compose.yaml ./
+    //     docker-compose down
+    //     docker stop $(docker ps -a -q)
+    //     docker rm $(docker ps -a -q)
+    //     docker rmi moodle:alt
+    //     docker pull ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+    //     docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
+    //     docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+    //     docker-compose up
+    //     '''
+    //   }
+    // }
+    // stage ('Deploy to ECS') {
+    //   agent { label 'terraformAgent' }
+    //   steps {
+    //     withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
+    //                     string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
+    //                       dir('moodle_infrastructure') {
+    //                         sh ''' #!/bin/bash
+    //                         terraform init
+    //                         terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="image-id=kuriosity:1.${BUILD_NUMBER}"
+    //                         terraform apply plan.tfplan
+    //                         '''
+    //                       }
+    //                     }
+    //   }
+    // }
     // stage ('Destroy ECS Infra') {
     //   agent { label 'terraformAgent' }
     //   steps {
