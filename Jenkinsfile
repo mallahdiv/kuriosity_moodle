@@ -29,13 +29,14 @@ pipeline {
       agent { label 'altAgent' }
       steps {
         sh '''#!/bin/bash
-        cp /home/ubuntu/agent/docker-compose.yaml ./
+        cp /home/ubuntu/docker-compose.yaml ./
         docker-compose down
         docker stop $(docker ps -a -q)
         docker rm $(docker ps -a -q)
         docker rmi moodle:alt
         docker pull ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
+        docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker-compose up
         '''
       }
