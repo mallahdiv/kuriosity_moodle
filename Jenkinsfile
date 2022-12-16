@@ -38,6 +38,13 @@ pipeline {
         docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
         docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
         docker-compose up -d
+
+
+        echo 'Installing k6'
+        sh 'sudo chmod +x setup_k6.sh'
+        sh 'sudo ./setup_k6.sh'
+        echo 'Running K6 performance tests...'
+        sh 'k6 run loadtests/k6_loadtest.js
         '''
       }
     }
