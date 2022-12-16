@@ -1,0 +1,14 @@
+# docker-compose file to use for Alternate EC2 Instance
+
+version: "3.8"
+
+services:
+  moodlealt:
+    image: "moodle:alt"
+    ports:
+      - 80:80
+    volumes:
+      - moodledata:/var/moodledata
+volumes:
+  moodledata:
+    driver: local
