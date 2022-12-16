@@ -1,4 +1,4 @@
-# Declare we want to use S3 backend to store tfstate file and not locally
+# Declares we want to use S3 backend to store tfstate file and not locally
 terraform {
  backend "s3" {
    bucket         = "moodle-tfstate-bucket"

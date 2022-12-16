@@ -42,7 +42,6 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
   execution_role_arn       = "arn:aws:iam::582540642094:role/ecsTask"
   task_role_arn            = "arn:aws:iam::582540642094:role/ecsTask"
 
-  #      "image": "klgroup4/kuriosity:1.${version_number}",
   container_definitions = <<DEFINITION
   [
     {
@@ -63,7 +62,6 @@ resource "aws_ecs_task_definition" "moodle_ecs_task" {
       ]
     }
   ]
-
   DEFINITION
 }
 
