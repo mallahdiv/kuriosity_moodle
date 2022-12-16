@@ -29,6 +29,8 @@ pipeline {
       agent { label 'altAgent' }
       steps {
         sh '''#!/bin/bash
+        pwd
+        
         docker-compose down
         docker stop $(docker ps -a -q)
         docker rm $(docker ps -a -q)
@@ -39,7 +41,7 @@ pipeline {
 
         
 
-        
+
         '''
       }
     }
