@@ -1,3 +1,15 @@
+# Declare we want to use S3 backend to store tfstate file and not locally
+terraform {
+ backend "s3" {
+   bucket         = "moodle-tfstate-bucket"
+   key            = "state/terraform.tfstate"
+   region         = "us-east-1"
+   encrypt        = true
+   kms_key_id     = "alias/moodle-tf-bucket-key"
+   dynamodb_table = "moodle-terraform-state"
+ }
+}
+
 # AWS Key Management Service Key - allows for encryption of state bucket
 resource "aws_kms_key" "moodle_tf_bucket_key" {
   description = "Key used to encrypt S3 bucket"
