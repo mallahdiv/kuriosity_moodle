@@ -29,7 +29,7 @@ pipeline {
       agent { label 'altAgent' }
       steps {
         sh '''#!/bin/bash
-        cd /home/ubuntu/agent
+        cp /home/ubuntu/agent/docker-compose.yaml ./
         docker-compose down
         docker stop $(docker ps -a -q)
         docker rm $(docker ps -a -q)
