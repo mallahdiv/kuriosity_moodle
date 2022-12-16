@@ -41,5 +41,5 @@ resource "aws_lb_target_group" "moodle_alb_target" {
 
 # Output ALB URL
 output "moodle_alb_url" {
-  value = "http://${aws_alb.moodle_alb.dns_name}"
+  value = "http://${aws_alb.moodle_alb.dns_name}/moodle"
 }

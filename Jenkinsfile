@@ -14,13 +14,6 @@ pipeline {
         '''
       }
     }
-    stage ('Test') {
-      steps {
-        sh '''#!/bin/bash
-        echo "test stage"
-        '''
-      }
-    }
     stage ('Push Image to DockerHub') {
       agent { label 'dockerAgent' }
       steps {
@@ -32,6 +25,22 @@ pipeline {
         '''
       }
     }
+    // stage ('Test') {
+    //   agent { label 'altAgent' }
+    //   steps {
+    //     sh '''#!/bin/bash
+    //     cp /home/ubuntu/docker-compose.yaml ./
+    //     docker-compose down
+    //     docker stop $(docker ps -a -q)
+    //     docker rm $(docker ps -a -q)
+    //     docker rmi moodle:alt
+    //     docker pull ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+    //     docker tag ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER} moodle:alt
+    //     docker rmi ${DOCKERHUB_CREDENTIALS_USR}/kuriosity:1.${BUILD_NUMBER}
+    //     docker-compose up
+    //     '''
+    //   }
+    // }
     stage ('Deploy to ECS') {
       agent { label 'terraformAgent' }
       steps {
@@ -65,7 +74,7 @@ pipeline {
   post {
     always {
       emailext to: "kurafinalgroup4@gmail.com",
-      subject: "Jenkins Alert for ${currentBuild.projectName} - Build ${currentBuild.number} Result",
+      subject: "Jenkins Pipeline Alert for ${JOB_NAME} - Build ${currentBuild.number} Result",
       body: "Confirming that build ${currentBuild.number} has been completed for ${currentBuild.projectName} with a result of ${currentBuild.result}.\n\nFor more information, please visit ${env.BUILD_URL} for details on the build."
       }
   }

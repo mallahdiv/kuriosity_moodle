@@ -75,23 +75,3 @@ resource "aws_security_group" "moodledb_security_group" {
 #     cidr_blocks = [aws_vpc.moodle_vpc.cidr_block]
 #   }
 # }
-
-resource "aws_security_group" "kl_bs_moodle_sg" {
-  name        = "kl_bs_moodle_sg"
-  description = "kl_bs_moodle_sg"
-  vpc_id      = aws_vpc.moodle_vpc.id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
