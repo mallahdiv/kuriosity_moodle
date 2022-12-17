@@ -7,6 +7,43 @@ body {
     height: 100%;
 }
 
+/** Dark Top Overrides **/
+/*
+html,
+body {
+    height: 100%;
+    background-image: url("boost/scss/moodle/img/wp7848331-devops-wallpapers.png");
+    background-size: cover;
+}
+.navbar-light .navbar-brand {
+	filter: invert(1);
+	-webkit-filter: invert(1);
+}
+.navbar.fixed-top {
+	border-bottom: rgba(0,0,0,0.7) 1px solid !important;
+}
+.bg-white { background-color: rgba(0,0,0,0.7) !important; }
+.navbar-light .navbar-nav .nav-link { color: #fff; }
+.navbar-light .navbar-nav .nav-link:hover { color: #ccc; }
+.primary-navigation .navigation .nav-link {
+	height: 60px;
+	color: #fff !important;
+	border-top: 3px solid transparent;
+}
+.primary-navigation .navigation .nav-link:hover { background-color: rgba(0,0,0,0.4); }
+
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+	color: #fff;
+}
+.navbar-light .navbar-nav .show > .nav-link:hover, .navbar-light .navbar-nav .active > .nav-link:hover, .navbar-light .navbar-nav .nav-link.show:hover, .navbar-light .navbar-nav .nav-link.active:hover {
+	color: #fff;
+	background-color: rgba(0,0,0,0.4);
+}
+.nameGameIcon {
+	color:#fff;
+}
+*/
+
 .stickyfooter {
     position: fixed;
     right: 0;
