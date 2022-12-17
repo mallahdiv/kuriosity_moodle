@@ -1,5 +1,10 @@
 # Kuriosity
 
+## Application
+- [Moodle](https://moodle.org) is a learning platform designed to provide
+educators, administrators and learners with a single robust, secure and
+integrated system to create personalised learning environments
+
 | __Team Member__  | __Function/Role__ |
 | -----------      | -----------       |
 | Mallah-Divine Mallah | Program Manager   |
@@ -8,14 +13,6 @@
 | Anjuli Panizzi   | Analyst |
 | Chanesh Mahadeo  | Analyst |
 | Brian Louie      | Analyst |
-
-
-
-## Application
-- [Moodle](https://moodle.org) is a learning platform designed to provide
-educators, administrators and learners with a single robust, secure and
-integrated system to create personalised learning environments
-
 
 <br></br> 
 ## Infrastructure Toolkit 
@@ -29,7 +26,6 @@ integrated system to create personalised learning environments
 ![](./icons/aws-ec2-icon.png)
 ![](./icons/dynamodb_icon.png)
 ![](./icons/fargate-icon2.png)
-
 
 >Containerization  \
 <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> 
@@ -51,7 +47,7 @@ integrated system to create personalised learning environments
 <a href="https://www.terraform.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/terraformio/terraformio-icon.svg" alt="terraform" width="40" height="40"/> </a>
  
 <br> </br> 
-## High-Level Systems Design
+## Systems Design
 
-![Technical Diagram](./diagrams/diagram_initial_high_level_overview.png) 
+![Technical Diagram](./diagrams/diagram_final.png) 
 
