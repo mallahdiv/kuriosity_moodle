@@ -10,8 +10,6 @@ Build an architecture to deploy an application of your choice. Develop a team st
 - Demonstrate effective project management
 - Communicate learning via presentation and demonstration
 
-#### Assignment instructions can be found here: [Deployment5_Instructions.pdf](https://github.com/cadenhong/kl_wk19_deployment5/blob/main/deployment_documentation/Deployment-5_Assignment.pdf)
-
 -----------------------------------------------------------------------------------------------------------------------------
 # Kuriosity
 <img src="https://github.com/cadenhong/kuriosity_moodle/blob/main/documentations/kuriosity-logo.png">
