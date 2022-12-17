@@ -49,17 +49,17 @@ pipeline {
 //         '''
 //       }
 //     }
-      stage ('Destroy ECS Infra') {
-      agent { label 'terraformAgent' }
-      steps {
-        withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
-                        string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
-                          dir('moodle_infrastructure') {
-                            sh 'terraform destroy --auto-approve -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="image-id=kuriosity:1.${BUILD_NUMBER}"'
-                          }
-                        }
-      }
-    }
+//       stage ('Destroy ECS Infra') {
+//       agent { label 'terraformAgent' }
+//       steps {
+//         withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
+//                         string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
+//                           dir('moodle_infrastructure') {
+//                             sh 'terraform destroy --auto-approve -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="image-id=kuriosity:1.${BUILD_NUMBER}"'
+//                           }
+//                         }
+//       }
+//     }
   
     stage ('Deploy to ECS') {
       agent { label 'terraformAgent' }
