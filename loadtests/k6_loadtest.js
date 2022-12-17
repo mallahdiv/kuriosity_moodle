@@ -7,9 +7,9 @@ let ErrorCount = new Counter("errors");
 
 export let options = {
     stages: [
-        {duration: '25s', target: 40}, //simulates increase to 40 VUs 
-        {duration: '20s', target: 30}, //for 20s maintain 40 VUs
-        {duration: '15s', target: 0} //finally scale down to 0 VUs
+        {duration: '5s', target: 10}, //simulates increase to 10 VUs 
+        {duration: '10s', target: 10}, //for 10s maintain 10 VUs
+        {duration: '5s', target: 0} //finally scale down to 0 VUs
     ],
     thresholds: { // global pass|fail criteria 
         http_req_duration: ['p(95)<500'], // 95 percent of response times must be below 500ms
