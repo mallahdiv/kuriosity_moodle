@@ -68,9 +68,13 @@ pipeline {
                         string(credentialsId: 'AWS_SECRET_KEY', variable: 'aws_secret_key')]) {
                           dir('moodle_infrastructure') {
                             sh ''' #!/bin/bash
-                             echo "yes" | terraform init -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key"\
-
-
+                            echo "yes" | terraform init \
+                            -backend-config="bucket=moodle-tfstate-bucket" \
+                            -backend-config="key=moodle/infra.tfstate" \
+                            -backend-config="region=us-east-1" \
+                            -backend-config="dynamodb_table=moodle-terraform-state" \
+                            -backend-config="access_key=$aws_access_key" \
+                            -backend-config="secret_key=$aws_secret_key"
                             terraform plan -out plan.tfplan -var="aws_access_key=$aws_access_key" -var="aws_secret_key=$aws_secret_key" -var="image-id=kuriosity:1.${BUILD_NUMBER}"
                             terraform apply plan.tfplan
                             '''
@@ -79,13 +83,7 @@ pipeline {
       }
     }
 
-  //                             -backend-config="bucket=moodle-tfstate-bucket" \
-//                             -backend-config="key=moodle/infra.tfstate" \
-//                             -backend-config="region=us-east-1" \
-//                             -backend-config="dynamodb_table=moodle-terraform-state" \
-//                             -backend-config="access_key=$aws_access_key" \
-//                             -backend-config="secret_key=$aws_secret_key"
-  
+     
   }
   post {
     always {
