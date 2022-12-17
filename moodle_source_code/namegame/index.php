@@ -615,7 +615,7 @@ document.body.className += ' jsenabled';
         <div style="position:relative; bottom:0; border:1px solid rgba(0,0,0,0.2); background:rgba(0,0,0,0.05); border-radius:5px; padding:15px; color:rgba(0,0,0,0.7);">
             <ol>
                         <li>Click the button to play</li>
-                        <li>Try to catch the TyroneMonster! When you do, he will stop and choose a studen to grill...for dinner? perhaps not</li>
+                        <li>Try to catch the TyroneMonster! When you do, he will stop and choose a student to grill...for dinner? perhaps not</li>
             </ol>
         </div>
     </div>
