@@ -18,44 +18,40 @@ integrated system to create personalised learning environments
 
 
 <br></br> 
-## Infrastructure toolkit 
+## Infrastructure Toolkit 
 
 >Cloud Platform & Provider <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40"/> </a> \
-<<<<<<< HEAD
 ![](./documentation/s3_icon.png)
 ![](./documentation/dynamodb_icon.png)
 ![](./documentation/fargate-icon2.png)
 <a href="https://aws.amazon.com/ecs/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/amazon_ecs/amazon_ecs-ar21.svg" alt="aws" width="40" height="40"/> </a>
-=======
 ![](./icons/s3_icon.png) 
 ![](./icons/aws-ec2-icon.png)
 ![](./icons/dynamodb_icon.png)
 ![](./icons/fargate-icon2.png)
->>>>>>> 74a03af561a69821f2182774a4a4450bc17f291a
 
->Application containerization  \
+
+>Containerization  \
 <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> 
 
- >CI/CD pipeline management \
+ >CI/CD Pipeline Management \
  <a href="https://www.jenkins.io" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/jenkins/jenkins-icon.svg" alt="jenkins" width="40" height="40"/> </a>
 
->Version control system \
-<<<<<<< HEAD
+>Version Control System \
  <a href="https://github.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/github/github-ar21.svg" alt="jenkins" width="60" height="40"/> </a>
 
->Web server \
+>Web Server \
  <a href="https://httpd.apache.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/apache/apache-ar21.svg" alt="jenkins" width="40" height="40"/> </a>
-=======
 ![](./icons/github-mark-white_v3.png) 
->>>>>>> 74a03af561a69821f2182774a4a4450bc17f291a
 
->Programming languages \
+>Application Stack \
  <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://golang.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/gnu_bash/gnu_bash-icon.svg" alt="bash" width="40" height="40"/> </a>
 
  >Infrastructure-as-Code (IaS) \
 <a href="https://www.terraform.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/terraformio/terraformio-icon.svg" alt="terraform" width="40" height="40"/> </a>
  
 <br> </br> 
-## High-Level system design
+## High-Level Systems Design
 
 ![Technical Diagram](./diagrams/diagram_initial_high_level_overview.png) 
+
