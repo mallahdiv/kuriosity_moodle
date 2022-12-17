@@ -8,7 +8,7 @@ let ErrorCount = new Counter("errors");
 export let options = {
     stages: [
         {duration: '5s', target: 10}, //simulates increase to 10 VUs 
-        {duration: '10s', target: 10}, //for 10s maintain 10 VUs
+        {duration: '5s', target: 5}, //for 10s maintain 5 VUs
         {duration: '5s', target: 0} //finally scale down to 0 VUs
     ],
     thresholds: { // global pass|fail criteria 
