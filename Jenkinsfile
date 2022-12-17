@@ -70,7 +70,7 @@ pipeline {
                         }
       }
     }
-//     stage ('Destroy ECS Infra') {
+//       stage ('Destroy ECS Infra') {
 //       agent { label 'terraformAgent' }
 //       steps {
 //         withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'aws_access_key'), 
