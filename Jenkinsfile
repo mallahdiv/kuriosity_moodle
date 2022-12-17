@@ -48,7 +48,7 @@ pipeline {
 //         k6 run --out json=/home/ubuntu/testsummary/test_results.json loadtests/k6_loadtest.js
 //         '''
 //       }
-    }
+//     }
       stage ('Destroy ECS Infra') {
       agent { label 'terraformAgent' }
       steps {
