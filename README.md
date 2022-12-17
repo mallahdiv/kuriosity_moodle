@@ -14,7 +14,7 @@ Build an architecture to deploy an application of your choice. Develop a team st
 
 -----------------------------------------------------------------------------------------------------------------------------
 # Kuriosity
-<img src="https://github.com/kura-labs-org/kuralabs_deployment_1/blob/main/Kuralogo.png">
+<img src="https://github.com/cadenhong/kuriosity_moodle/blob/main/documentations/kuriosity-logo.png">
 
 ## Application
 [Moodle](https://moodle.org) is a learning platform designed to provide
