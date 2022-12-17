@@ -24,15 +24,15 @@ Build an architecture to deploy an application of your choice. Develop a team st
 ## Team
 | __Team Member__  | __Function/Role__ |
 | -----------      | -----------       |
-| Mallah-Divine M. | Program Manager   |
-| Caden H.       | Chief Architect   |
-| Randall D.C. | Admin             |
-| Anjuli P.   | Analyst |
-| Chanesh M.  | Analyst |
-| Brian L.      | Analyst |
+| [Mallah-Divine M.](https://github.com/mallahdiv) | Program Manager   |
+| [Caden H.](https://github.com/cadenhong)       | Chief Architect   |
+| [Randall D.C.](https://github.com/dacostaration) | Admin             |
+| [Anjuli P.](https://github.com/AnjKura)   | Analyst |
+| [Chanesh M.](https://github.com/Chaneshm)  | Analyst |
+| [Brian L.](https://github.com/kura3git)      | Analyst |
 
 ## Website
-![Kuriosity Website](./diagrams/kuriosity_website.png) 
+![Kuriosity Website](./screenshots/kuriosity_homepage.png) 
 
 ## Load Testing with K6
 ![Load Testing Result](./screenshots/k6_loadtesting_results.png)
