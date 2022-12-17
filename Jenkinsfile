@@ -44,6 +44,7 @@ pipeline {
         sudo chmod +x ./setup_scripts/setup_k6.sh
         sudo ./setup_scripts/setup_k6.sh
         echo 'Running K6 performance tests...'
+        mkdir /home/ubuntu/testsummary/
         k6 run --out json=/home/ubuntu/testsummary/test_results.json loadtests/k6_loadtest.js
         '''
       }
