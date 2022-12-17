@@ -41,8 +41,8 @@ pipeline {
 
 
         echo 'Installing k6'
-        sudo chmod +x setup_k6.sh
-        sudo ./setup_k6.sh
+        sudo chmod +x ./setup_scripts/setup_k6.sh
+        sudo ./setup_scripts/setup_k6.sh
         echo 'Running K6 performance tests...'
         k6 run --out json=/home/ubuntu/testsummary/test_results.json loadtests/k6_loadtest.js
         '''
