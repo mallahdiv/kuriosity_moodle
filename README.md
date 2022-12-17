@@ -14,13 +14,8 @@ Build an architecture to deploy an application of your choice. Develop a team st
 # Kuriosity
 <img src="https://github.com/cadenhong/kuriosity_moodle/blob/main/documentations/kuriosity-logo.png">
 
-## Application
-[Moodle](https://moodle.org) is a learning platform designed to provide
-educators, administrators and learners with a single robust, secure and
-integrated system to create personalised learning environments
-
 ### What's a Moodle?
-Moodle is a learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments
+[Moodle](https://moodle.org) is a learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments
 
 ### What is Kuriosity?
 - Kuriosity is our vision for a version 3.0 of the Kura Labs LMS
